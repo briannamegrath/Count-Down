@@ -142,11 +142,11 @@ $form.addEventListener('submit', function (event) {
 })
 let interval
 function calculate(chosenHoliday) {
-  let holidayDate = holidays[chosenHoliday].date
+  let holidayDate = holidays[chosenHoliday].dateb
   const holidayImage = holidays[chosenHoliday].Image
   if (holidayDate < now) {
     holidayDate = DateTime.fromObject({
-      year: now.year + 1,
+      year: now.year + 1,b
       month: holidayDate.month,
       day: holidayDate.days
     })
