@@ -1,6 +1,6 @@
 const DateTime = luxon.DateTime
 let now = DateTime.local()
-let currentYear = now.years
+const currentYear = now.years
 
 const holidays = {
   newYears: {
@@ -48,7 +48,7 @@ const holidays = {
       day: 9
     }),
     name: 'Mother\'s Day',
-    Image: './images/motherday.png'
+    Image: './images/mothersday.png'
   },
 
   fathersDay: {
@@ -97,7 +97,7 @@ const holidays = {
       month: 10,
       day: 31
     }),
-    name:'Halloween',
+    name: 'Halloween',
     Image: './images/halloween.png'
   },
 
@@ -123,7 +123,7 @@ const holidays = {
 }
 const $form = document.getElementById('holiday-form')
 const select = document.getElementById('holiday-select')
-let inputs = []
+const inputs = []
 for (const holiday in holidays) {
   const holidayRadio = `<option value= '${holiday}'> ${holidays[holiday].name}</option>`
   inputs.push(holidayRadio)
@@ -141,33 +141,33 @@ $form.addEventListener('submit', function (event) {
   localStorage.setItem('targetDate', JSON.stringify(chosenHoliday))
 })
 let interval
-function calculate(chosenHoliday) {
-  let holidayDate = holidays[chosenHoliday].dateb
+function calculate (chosenHoliday) {
+  let holidayDate = holidays[chosenHoliday].date
   const holidayImage = holidays[chosenHoliday].Image
   if (holidayDate < now) {
     holidayDate = DateTime.fromObject({
-      year: now.year + 1,b
+      year: now.year + 1,
       month: holidayDate.month,
       day: holidayDate.days
     })
   }
- 
-if(interval != undefined) {
-    clearInterval(interval)
-}
 
-  interval = setInterval( function() {
+  if (interval != undefined) {
+    clearInterval(interval)
+  }
+
+  interval = setInterval(function () {
     now = DateTime.local()
-    let diff = holidayDate.diff(now, ['days', 'hours', 'minutes', 'seconds'])
+    const diff = holidayDate.diff(now, ['days', 'hours', 'minutes', 'seconds'])
     const $result = document.getElementById('result')
     $result.innerText = `${diff.days} days ${diff.hours} hours ${diff.minutes} minutes ${Math.floor(diff.seconds)}`
     const $img = document.getElementById('holiday-img')
-    $img.innerHTML= `<img src='${holidayImage}'/>`
+    $img.innerHTML = `<img src='${holidayImage}'/>`
   }, 1000)
 }
 
-let dateFromLocalStorage = localStorage.getItem('targetDate')
-if(dateFromLocalStorage) {
+const dateFromLocalStorage = localStorage.getItem('targetDate')
+if (dateFromLocalStorage) {
   const chosenHoliday = JSON.parse(dateFromLocalStorage)
   calculate(chosenHoliday)
 }
